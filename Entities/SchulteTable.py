@@ -1,15 +1,7 @@
-import random
-import functools
-from PySide6.QtWidgets import QWidget, QPushButton, QSizePolicy
-from CellOfTable import CellOfTable
+from Entities.CellOfTable import CellOfTable
 
 import random
-import time
-import functools
-from PySide6.QtWidgets import QWidget, QPushButton, QMainWindow, QApplication, QVBoxLayout, QMessageBox
-
-
-
+from PySide6.QtWidgets import QWidget
 
 
 class SchulteTable(QWidget):
@@ -20,8 +12,8 @@ class SchulteTable(QWidget):
         self.start_y = start_y
         self.button_size = 100
         self.interval = 10
-        self.CurrentValue = None  # Атрибут для хранения текущего значения
-        self.buttons = []  # Список для хранения кнопок
+        self.CurrentValue = None
+        self.buttons = []
 
     def create_table(self):
         values = list(range(1, self.n * self.n + 1))
@@ -36,10 +28,7 @@ class SchulteTable(QWidget):
                     x = self.start_x + col * (self.button_size + self.interval)
                     y = self.start_y + row * (self.button_size + self.interval)
                     button.move(x, y)
-                    self.buttons.append(button)  # Добавляем кнопку в список
+                    self.buttons.append(button)
         else:
             for button, value in zip(self.buttons, values):
                 button.update_value(value)
-
-
-

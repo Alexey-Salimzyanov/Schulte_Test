@@ -5,4 +5,5 @@ class AdminAccount:
     def get_password(self):
         return self.__password
 
+
 admin_account = AdminAccount('12345')
