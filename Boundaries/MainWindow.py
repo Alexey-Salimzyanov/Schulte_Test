@@ -15,15 +15,15 @@ class MainWindow(QMainWindow):
         self.__test_window = None
 
         # Подключаем событие нажатия на кнопку
-        self.__ui.authButton.clicked.connect(partial(self.open_auth_window, admin_account))
-        self.__ui.startTestButton.clicked.connect(self.open_test_window)
+        self.__ui.authButton.clicked.connect(partial(self._open_auth_window, admin_account))
+        self.__ui.startTestButton.clicked.connect(self._open_test_window)
 
-    def open_auth_window(self, account):
+    def _open_auth_window(self, account):
         self.hide()  # Скрываем главное окно
         self.__auth_window = AuthWindow(self, account)
         self.__auth_window.show()  # Показываем окно авторизации
 
-    def open_test_window(self):
+    def _open_test_window(self):
         self.hide()  # Скрываем главное окно
         self.__test_window = TestWindow(self)
         self.__test_window.show()

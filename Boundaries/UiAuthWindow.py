@@ -26,6 +26,7 @@ class Ui_AuthWindow(object):
         font = QFont()
         font.setPointSize(11)
         self.passwordEdit.setFont(font)
+        self.passwordEdit.setEchoMode(QLineEdit.Password)
         self.enterButton = QPushButton(self.centralwidget)
         self.enterButton.setObjectName(u"enterButton")
         self.enterButton.setGeometry(QRect(310, 150, 71, 41))
@@ -58,4 +59,3 @@ class Ui_AuthWindow(object):
         self.authLabel.setText(QCoreApplication.translate("AuthWindow", u"\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f", None))
         self.toMainButton.setText(QCoreApplication.translate("AuthWindow", u"\u041d\u0430 \u0433\u043b\u0430\u0432\u043d\u0443\u044e", None))
     # retranslateUi
-

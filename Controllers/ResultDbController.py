@@ -3,8 +3,8 @@ from Entities.Result import Result
 
 
 class ResultDbController:
-
-    def create_connection(self):
+    @staticmethod
+    def create_connection():
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName('schulte_db.db')
 
@@ -18,7 +18,8 @@ class ResultDbController:
 
         return True
 
-    def execute_query(self, sql_query, query_values=None):
+    @staticmethod
+    def _execute_query(sql_query, query_values=None):
         query = QtSql.QSqlQuery()
         query.prepare(sql_query)
 
@@ -29,7 +30,8 @@ class ResultDbController:
         query.exec()
         return query
 
-    def add_new_result(self, result: Result):
+    @staticmethod
+    def add_new_result(result: Result):
         times = result.get_times()
         num_of_errors = result.get_num_of_errors()
 
@@ -41,14 +43,16 @@ class ResultDbController:
                      " VALUES (?, ?, ?, ?, ?, ?)")
 
         # Выполнение запроса
-        self.execute_query(sql_query, params)
+        ResultDbController._execute_query(sql_query, params)
 
-    def get_all_results(self):
-        query = self.execute_query("SELECT * FROM results")
+    @staticmethod
+    def get_all_results():
+        query = ResultDbController._execute_query("SELECT * FROM results")
         results = []
 
         while query.next():
             result = Result(
+                id=query.value(0),
                 times=[query.value(1), query.value(2), query.value(3), query.value(4), query.value(5)],
                 num_of_errors=query.value(6)
             )
@@ -56,10 +60,13 @@ class ResultDbController:
 
         return results
 
-    def get_latest_result(self):
-        query = self.execute_query("SELECT * FROM results ORDER BY ID DESC LIMIT 1")
+    @staticmethod
+    def get_latest_result():
+        query = ResultDbController._execute_query("SELECT * FROM results ORDER BY ID DESC LIMIT 1")
         if query.next():
+
             result = Result(
+                id=query.value(0),
                 times=[query.value(1), query.value(2), query.value(3), query.value(4), query.value(5)],
                 num_of_errors=query.value(6)
             )
@@ -68,5 +75,4 @@ class ResultDbController:
         return None
 
 
-result_db = ResultDbController()
-result_db.create_connection()
+ResultDbController.create_connection()
